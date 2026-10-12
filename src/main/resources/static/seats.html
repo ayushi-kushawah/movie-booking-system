@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Seats</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    let selectedSeats = [];
+
+    window.onload = function() {
+      const seatsContainer = document.getElementById("seatsContainer");
+
+      // Create seat grid 5 rows x 8 seats
+      for(let r = 1; r <= 5; r++){
+        const rowDiv = document.createElement("div");
+        rowDiv.classList.add("seat-row");
+
+        for(let s = 1; s <= 8; s++){
+          const seatBtn = document.createElement("button");
+          seatBtn.classList.add("seat");
+          seatBtn.innerText = `${r}-${s}`;
+
+          seatBtn.onclick = function() {
+            if(selectedSeats.includes(seatBtn.innerText)){
+              selectedSeats = selectedSeats.filter(seat => seat !== seatBtn.innerText);
+              seatBtn.classList.remove("selected");
+            } else {
+              selectedSeats.push(seatBtn.innerText);
+              seatBtn.classList.add("selected");
+            }
+          };
+
+          rowDiv.appendChild(seatBtn);
+        }
+
+        seatsContainer.appendChild(rowDiv);
+      }
+    }
+
+    function bookSeats() {
+      if(selectedSeats.length === 0){
+        alert("Select at least one seat!");
+        return;
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const show = urlParams.get("show");
+      const seatsStr = selectedSeats.join(",");
+
+      window.location.href = "confirmation.html?show=" + encodeURIComponent(show) + "&seats=" + encodeURIComponent(seatsStr);
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Select Seats</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="bookings.html">My Bookings</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Choose Your Seats</h2>
+    <div id="seatsContainer"></div>
+    <button class="btn" onclick="bookSeats()">Book Now</button>
+  </main>
+</body>
+</html>

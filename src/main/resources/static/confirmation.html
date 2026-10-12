@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmation</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #111 0%, #000 100%);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #000;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e50914;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #e50914;
+      font-weight: 700;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #e50914;
+    }
+
+    main {
+      background-color: rgba(20, 20, 20, 0.9);
+      margin: 50px auto;
+      width: 90%;
+      max-width: 550px;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+      border: 1px solid rgba(229, 9, 20, 0.2);
+    }
+
+    h2 {
+      color: #00ff99;
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px #00ff99;
+    }
+
+    .info-line {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .info-line span:first-child {
+      color: #aaa;
+    }
+
+    .info-line span:last-child {
+      color: #e50914;
+      font-weight: 600;
+    }
+
+    .btn-container {
+      margin-top: 30px;
+    }
+
+    .btn {
+      background-color: #e50914;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+    }
+
+    .btn:hover {
+      background-color: #ff1b2d;
+      box-shadow: 0 0 20px rgba(255, 27, 45, 0.6);
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      opacity: 0.6;
+    }
+  </style>
+
+  <script>
+    const movies = {
+      inception: "Inception",
+      frozen: "Frozen",
+      oppenheimer: "Oppenheimer",
+      conjuring: "The Conjuring",
+      darkknight: "The Dark Knight",
+      endgame: "Avengers: Endgame",
+      interstellar: "Interstellar",
+      ironman: "Iron Man",
+      titanic: "Titanic",
+      lalaland: "La La Land",
+      joker: "Joker",
+      lionking: "The Lion King"
+    };
+
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const show = urlParams.get("show"); 
+      const seats = urlParams.get("seats")?.split(",") || [];
+
+      const [time, movieId] = show ? show.split("-") : ["N/A", "unknown"];
+      const movieName = movies[movieId] || "Movie";
+
+      const pricePerSeat = 150;
+      const totalPrice = seats.length * pricePerSeat;
+
+      document.getElementById("movieName").innerText = movieName;
+      document.getElementById("showTime").innerText = time;
+      document.getElementById("seatList").innerText = seats.join(", ") || "N/A";
+      document.getElementById("totalPrice").innerText = "₹" + totalPrice;
+      document.getElementById("date").innerText = new Date().toLocaleDateString();
+      document.getElementById("theatreName").innerText = "CineWorld Multiplex, Mumbai";
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>🎬 Movie Booking</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="bookings.html">My Bookings</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>✅ Booking Confirmed!</h2>
+    <div class="info-line"><span>Movie:</span> <span id="movieName"></span></div>
+    <div class="info-line"><span>Showtime:</span> <span id="showTime"></span></div>
+    <div class="info-line"><span>Date:</span> <span id="date"></span></div>
+    <div class="info-line"><span>Theatre:</span> <span id="theatreName"></span></div>
+    <div class="info-line"><span>Seats:</span> <span id="seatList"></span></div>
+    <div class="info-line"><span>Total Price:</span> <span id="totalPrice"></span></div>
+
+    <div class="btn-container">
+      <button class="btn" onclick="window.location.href='index.html'">🎟 Book Another</button>
+    </div>
+  </main>
+
+  <footer>© 2025 CineWorld Booking. All Rights Reserved.</footer>
+</body>
+</html>

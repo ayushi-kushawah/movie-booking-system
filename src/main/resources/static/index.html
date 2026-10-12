@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Movie Ticket Booking</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🎬 Online Movie Ticket Booking</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="bookings.html">My Bookings</a>
+    </nav>
+
+    <!-- 🔍 Search Bar -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search movies..." onkeyup="searchMovies(event)">
+      <div id="searchResult"></div>
+    </div>
+  </header>
+
+  <main>
+    <h2>Now Showing</h2>
+    <div class="movies-grid">
+
+      <div class="movie-card">
+        <img src="images/inception.jpg" alt="Inception">
+        <h3>Inception</h3>
+        <p>Sci-Fi | 2h 28m</p>
+        <a href="movies.html?movie=inception" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/frozen.jpg" alt="Frozen">
+        <h3>Frozen</h3>
+        <p>Animation | 1h 42m</p>
+        <a href="movies.html?movie=frozen" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/oppenheimer.jpg" alt="Oppenheimer">
+        <h3>Oppenheimer</h3>
+        <p>Biography | 3h 0m</p>
+        <a href="movies.html?movie=oppenheimer" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/conjuring.jpg" alt="The Conjuring">
+        <h3>The Conjuring</h3>
+        <p>Horror | 1h 52m</p>
+        <a href="movies.html?movie=conjuring" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/darkknight.jpg" alt="The Dark Knight">
+        <h3>The Dark Knight</h3>
+        <p>Action | 2h 32m</p>
+        <a href="movies.html?movie=darkknight" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/endgame.jpg" alt="Avengers Endgame">
+        <h3>Avengers: Endgame</h3>
+        <p>Action | 3h 2m</p>
+        <a href="movies.html?movie=endgame" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/interstellar.jpg" alt="Interstellar">
+        <h3>Interstellar</h3>
+        <p>Sci-Fi | 2h 49m</p>
+        <a href="movies.html?movie=interstellar" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/ironman.jpg" alt="Iron Man">
+        <h3>Iron Man</h3>
+        <p>Action | 2h 6m</p>
+        <a href="movies.html?movie=ironman" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/titanic.jpg" alt="Titanic">
+        <h3>Titanic</h3>
+        <p>Romance | 3h 14m</p>
+        <a href="movies.html?movie=titanic" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/lalaland.jpg" alt="La La Land">
+        <h3>La La Land</h3>
+        <p>Musical | 2h 8m</p>
+        <a href="movies.html?movie=lalaland" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/joker.jpg" alt="Joker">
+        <h3>Joker</h3>
+        <p>Drama | 2h 2m</p>
+        <a href="movies.html?movie=joker" class="btn">View Showtimes</a>
+      </div>
+
+      <div class="movie-card">
+        <img src="images/lionking.jpg" alt="The Lion King">
+        <h3>The Lion King</h3>
+        <p>Animation | 1h 58m</p>
+        <a href="movies.html?movie=lionking" class="btn">View Showtimes</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 🔍 Search Script -->
+  <script>
+    const movies = [
+      { id:"inception", title:"Inception", poster:"images/inception.jpg" },
+      { id:"frozen", title:"Frozen", poster:"images/frozen.jpg" },
+      { id:"oppenheimer", title:"Oppenheimer", poster:"images/oppenheimer.jpg" },
+      { id:"conjuring", title:"The Conjuring", poster:"images/conjuring.jpg" },
+      { id:"darkknight", title:"The Dark Knight", poster:"images/darkknight.jpg" },
+      { id:"endgame", title:"Avengers: Endgame", poster:"images/endgame.jpg" },
+      { id:"interstellar", title:"Interstellar", poster:"images/interstellar.jpg" },
+      { id:"ironman", title:"Iron Man", poster:"images/ironman.jpg" },
+      { id:"titanic", title:"Titanic", poster:"images/titanic.jpg" },
+      { id:"lalaland", title:"La La Land", poster:"images/lalaland.jpg" },
+      { id:"joker", title:"Joker", poster:"images/joker.jpg" },
+      { id:"lionking", title:"The Lion King", poster:"images/lionking.jpg" }
+    ];
+
+    function searchMovies(event) {
+      let input = document.getElementById("searchInput").value.toLowerCase();
+      let resultDiv = document.getElementById("searchResult");
+      resultDiv.innerHTML = "";
+
+      if (input.length === 0) return;
+
+      const found = movies.filter(m => m.title.toLowerCase().includes(input));
+
+      if (found.length > 0) {
+        found.forEach(m => {
+          resultDiv.innerHTML += `
+            <a href="movies.html?movie=${m.id}" class="search-result-item">
+              <img src="${m.poster}" alt="${m.title}">
+              <span>${m.title}</span>
+            </a>
+          `;
+        });
+
+        // Press Enter → go to first result
+        if (event.key === "Enter") {
+        window.location.href = `movies.html?movie=${found[0].id}`;
+        }
+
+      } else {
+        resultDiv.innerHTML = "<p>No movie found</p>";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Details</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    const movies = {
+      inception: {title:"Inception", genre:"Sci-Fi", duration:"2h 28m", poster:"images/inception.jpg", about:"A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.", showtimes:[{time:"10:00 AM",price:120},{time:"1:00 PM",price:150},{time:"4:00 PM",price:150},{time:"7:00 PM",price:180},{time:"9:30 PM",price:200}]},
+      frozen: {title:"Frozen", genre:"Animation", duration:"1h 42m", poster:"images/frozen.jpg", about:"Fearless optimist Anna teams up with rugged mountain man Kristoff and his loyal reindeer Sven in an epic journey to find Anna's sister Elsa, whose icy powers have trapped the kingdom of Arendelle in eternal winter.", showtimes:[{time:"9:30 AM",price:100},{time:"12:30 PM",price:120},{time:"3:30 PM",price:120},{time:"6:30 PM",price:150},{time:"9:00 PM",price:150}]},
+      oppenheimer: {title:"Oppenheimer", genre:"Biography", duration:"3h 0m", poster:"images/oppenheimer.jpg", about:"A dramatization of the life story of J. Robert Oppenheimer, the physicist who had a large hand in the development of the atomic bombs that brought an end to World War II.", showtimes:[{time:"10:00 AM",price:150},{time:"1:00 PM",price:180},{time:"4:00 PM",price:180},{time:"7:00 PM",price:200},{time:"9:30 PM",price:220}]},
+      conjuring: {title:"The Conjuring", genre:"Horror", duration:"1h 52m", poster:"images/conjuring.jpg", about:"Paranormal investigators Ed and Lorraine Warren work and help a family terrorized by a dark presence in their farmhouse.", showtimes:[{time:"11:00 AM",price:120},{time:"2:00 PM",price:150},{time:"5:00 PM",price:150},{time:"8:00 PM",price:180},{time:"10:30 PM",price:200}]},
+      darkknight: {title:"The Dark Knight", genre:"Action", duration:"2h 32m", poster:"images/darkknight.jpg", about:"When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.", showtimes:[{time:"10:30 AM",price:150},{time:"1:30 PM",price:180},{time:"4:30 PM",price:180},{time:"7:30 PM",price:200},{time:"10:00 PM",price:220}]},
+      endgame: {title:"Avengers: Endgame", genre:"Action", duration:"3h 2m", poster:"images/endgame.jpg", about:"After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.", showtimes:[{time:"11:00 AM",price:180},{time:"2:00 PM",price:200},{time:"5:00 PM",price:200},{time:"8:00 PM",price:220},{time:"10:30 PM",price:250}]},
+      interstellar: {title:"Interstellar", genre:"Sci-Fi", duration:"2h 49m", poster:"images/interstellar.jpg", about:"When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.", showtimes:[{time:"9:00 AM",price:150},{time:"12:00 PM",price:180},{time:"3:00 PM",price:180},{time:"6:00 PM",price:200},{time:"9:00 PM",price:220}]},
+      ironman: {title:"Iron Man", genre:"Action", duration:"2h 6m", poster:"images/ironman.jpg", about:"After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil and becomes the superhero Iron Man.", showtimes:[{time:"10:00 AM",price:120},{time:"1:00 PM",price:150},{time:"4:00 PM",price:150},{time:"7:00 PM",price:180},{time:"9:30 PM",price:200}]},
+      titanic: {title:"Titanic", genre:"Romance", duration:"3h 14m", poster:"images/titanic.jpg", about:"A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious Titanic ship.", showtimes:[{time:"9:30 AM",price:120},{time:"12:30 PM",price:150},{time:"3:30 PM",price:150},{time:"6:30 PM",price:180},{time:"9:00 PM",price:200}]},
+      lalaland: {title:"La La Land", genre:"Musical", duration:"2h 8m", poster:"images/lalaland.jpg", about:"When Sebastian, a pianist, and Mia, an actress, follow their passion and achieve success in their respective fields, they find themselves torn between their love for each other and their careers.", showtimes:[{time:"10:30 AM",price:120},{time:"1:30 PM",price:150},{time:"4:30 PM",price:150},{time:"7:30 PM",price:180},{time:"10:00 PM",price:200}]},
+      joker: {title:"Joker", genre:"Drama", duration:"2h 2m", poster:"images/joker.jpg", about:"Arthur Fleck, a party clown and a failed stand-up comedian, leads an impoverished life with his ailing mother. However, when society shuns him and brands him as a freak, he decides to embrace the life of chaos in Gotham City.", showtimes:[{time:"11:00 AM",price:120},{time:"2:00 PM",price:150},{time:"5:00 PM",price:150},{time:"8:00 PM",price:180},{time:"10:30 PM",price:200}]},
+      lionking: {title:"The Lion King", genre:"Animation", duration:"1h 58m", poster:"images/lionking.jpg", about:"After the murder of his father, a young lion prince flees his kingdom only to learn the true meaning of responsibility and bravery.", showtimes:[{time:"9:00 AM",price:100},{time:"12:00 PM",price:120},{time:"3:00 PM",price:120},{time:"6:00 PM",price:150},{time:"9:00 PM",price:150}]}
+    };
+
+    window.addEventListener("DOMContentLoaded", function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const movieId = urlParams.get("movie");
+      const movie = movies[movieId];
+
+      if(movie){
+        document.getElementById("moviePoster").src = movie.poster;
+        document.getElementById("moviePoster").alt = movie.title;
+        document.getElementById("movieTitle").innerText = movie.title;
+        document.getElementById("movieGenre").innerText = movie.genre;
+        document.getElementById("movieDuration").innerText = movie.duration;
+        document.getElementById("movieAbout").innerText = movie.about;
+
+        const showtimesDiv = document.getElementById("showtimes");
+        movie.showtimes.forEach(show => {
+          const btn = document.createElement("a");
+          btn.className = "btn";
+          btn.href = `seats.html?show=${encodeURIComponent(show.time + "-" + movieId)}`;
+          btn.innerText = `${show.time} - ₹${show.price}`;
+          showtimesDiv.appendChild(btn);
+        });
+      } else {
+        document.getElementById("showtimes").innerText = "Showtimes not available.";
+      }
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Movie Details</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="bookings.html">My Bookings</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="movie-details-container">
+      <div class="poster-section">
+        <img id="moviePoster" src="" alt="">
+      </div>
+      <div class="info-section">
+        <h2 id="movieTitle">Loading...</h2>
+        <p><strong>Genre:</strong> <span id="movieGenre"></span></p>
+        <p><strong>Duration:</strong> <span id="movieDuration"></span></p>
+        <h3>About the Movie</h3>
+        <p id="movieAbout">Loading description...</p>
+      </div>
+    </div>
+
+    <section class="showtimes-section">
+      <h3>Showtimes</h3>
+      <div id="showtimes" class="showtimes"></div>
+    </section>
+  </main>
+</body>
+</html>
